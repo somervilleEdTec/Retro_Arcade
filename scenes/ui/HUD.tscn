@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/HUD.gd" id="1"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="HP" type="ProgressBar" parent="Root"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 180.0
+offset_bottom = 28.0
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="Scrap" type="Label" parent="Root"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 34.0
+offset_right = 200.0
+offset_bottom = 54.0
+text = "Scrap 0"
+
+[node name="Combo" type="Label" parent="Root"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 54.0
+offset_right = 200.0
+offset_bottom = 74.0
+
+[node name="Arsenal" type="Label" parent="Root"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 12.0
+offset_right = 620.0
+offset_bottom = 32.0
+text = "Arsenal: —"
+
+[node name="Hint" type="Label" parent="Root"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 330.0
+offset_right = 620.0
+offset_bottom = 350.0
+theme_override_font_sizes/font_size = 11
+text = "controls"

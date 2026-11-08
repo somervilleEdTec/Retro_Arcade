@@ -1,0 +1,17 @@
+{
+  "roles": {
+    "grunt": {"hp": 24, "damage": 6, "speed": 70, "scrap": 4, "color": "#568c48"},
+    "tank": {"hp": 60, "damage": 10, "speed": 40, "scrap": 8, "color": "#6e6e78"},
+    "grabber": {"hp": 32, "damage": 8, "speed": 55, "scrap": 6, "color": "#96468c"},
+    "projectile": {"hp": 22, "damage": 5, "speed": 50, "scrap": 5, "color": "#d2b43c"}
+  },
+  "boss": {
+    "dumpster_king": {
+      "hp": 220,
+      "damage": 12,
+      "scrap": 40,
+      "wrong_build_hp_mult": 1.45,
+      "wrong_build_wave_mult": 2.0
+    }
+  }
+}
