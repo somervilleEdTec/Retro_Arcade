@@ -1,7 +1,7 @@
 extends LevelBase
 ## Gated side-scroll — clear packs to advance.
 
-var gates: Array = [320.0, 560.0, 800.0]
+var gates: Array = [320.0, 560.0]
 var gate_i: int = 0
 var camera: GateCamera
 var clearing: bool = false

@@ -15,6 +15,7 @@ GameState="*res://systems/run/GameState.gd"
 ScrapBank="*res://systems/scrap/ScrapBank.gd"
 CoinBank="*res://systems/meta/CoinBank.gd"
 AudioBus="*res://systems/meta/AudioBus.gd"
+SmokeDriver="*res://systems/run/SmokeDriver.gd"
 
 [display]
 

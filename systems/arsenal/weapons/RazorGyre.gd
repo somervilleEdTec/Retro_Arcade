@@ -5,8 +5,8 @@ var _angle: float = 0.0
 var _blades: Array[Node2D] = []
 
 func _ready() -> void:
-	damage = 12.0
-	tick = 0.22
+	damage = 14.0
+	tick = 0.18
 	for i in 5:
 		var s := Sprite2D.new()
 		s.texture = load("res://assets/sprites/arsenal/razor.png")

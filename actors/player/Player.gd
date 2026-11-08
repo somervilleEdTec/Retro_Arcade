@@ -27,6 +27,8 @@ func _ready() -> void:
 	arsenal_inv = preload("res://systems/arsenal/ArsenalInventory.gd").new()
 	add_child(arsenal_inv)
 	arsenal_inv.bind_player(self)
+	var auto := preload("res://actors/player/AutoFighter.gd").new()
+	add_child(auto)
 	_sprite = $Sprite
 	_ensure_collision()
 	hp_changed.emit(hp, max_hp)
@@ -35,16 +37,17 @@ func _physics_process(delta: float) -> void:
 	if dead:
 		return
 	_invuln = max(0.0, _invuln - delta)
-	if not combat.busy:
-		_move(delta)
-	if Input.is_action_just_pressed("punch"):
-		combat.try_punch()
-	elif Input.is_action_just_pressed("kick"):
-		combat.try_kick()
-	elif Input.is_action_just_pressed("grab"):
-		combat.try_grab()
-	elif Input.is_action_just_pressed("special"):
-		combat.try_special()
+	if not GameState.auto_play:
+		if not combat.busy:
+			_move(delta)
+		if Input.is_action_just_pressed("punch"):
+			combat.try_punch()
+		elif Input.is_action_just_pressed("kick"):
+			combat.try_kick()
+		elif Input.is_action_just_pressed("grab"):
+			combat.try_grab()
+		elif Input.is_action_just_pressed("special"):
+			combat.try_special()
 	move_and_slide()
 	global_position.y = clampf(global_position.y, 250.0, 340.0)
 	global_position.x = maxf(40.0, global_position.x)

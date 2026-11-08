@@ -5,8 +5,8 @@ var _angle: float = 0.0
 var _pipes: Array[Node2D] = []
 
 func _ready() -> void:
-	damage = 7.0
-	tick = 0.35
+	damage = 9.0
+	tick = 0.28
 	for i in 3:
 		var s := Sprite2D.new()
 		s.texture = load("res://assets/sprites/arsenal/pipe.png")

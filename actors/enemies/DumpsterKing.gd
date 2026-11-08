@@ -3,11 +3,11 @@ extends CharacterBody2D
 
 enum Phase { IDLE, TELEGRAPH, CHARGE, RECOVER, SUMMON }
 
-var hp: float = 420.0
-var max_hp: float = 420.0
-var damage: float = 14.0
+var hp: float = 220.0
+var max_hp: float = 220.0
+var damage: float = 12.0
 var phase: Phase = Phase.IDLE
-var _timer: float = 1.0
+var _timer: float = 0.8
 var _dir: int = 1
 var _sprite: Sprite2D
 var dead: bool = false
@@ -49,33 +49,33 @@ func _physics_process(delta: float) -> void:
 		Phase.IDLE:
 			if _timer <= 0.0:
 				phase = Phase.TELEGRAPH
-				_timer = 0.7
+				_timer = 0.55 if wrong_build else 0.75
 				modulate = Color(1.3, 0.8, 0.5)
 		Phase.TELEGRAPH:
 			if _timer <= 0.0:
 				phase = Phase.CHARGE
-				_timer = 0.55
+				_timer = 0.5
 				var p := _player()
 				_dir = 1 if p and p.global_position.x >= global_position.x else -1
 		Phase.CHARGE:
-			velocity = Vector2(_dir * 280.0, 0)
+			velocity = Vector2(_dir * (320.0 if wrong_build else 260.0), 0)
 			move_and_slide()
 			_hit_player_contact()
 			if _timer <= 0.0:
 				phase = Phase.RECOVER
-				_timer = 1.1
+				_timer = 0.7 if wrong_build else 1.2
 				velocity = Vector2.ZERO
 				modulate = Color.WHITE
 				grab_immune = false
 		Phase.RECOVER:
-			# Grab window — teaching the hard counter
 			if _timer <= 0.0:
 				phase = Phase.SUMMON
-				_timer = 0.2
+				_timer = 0.15
 		Phase.SUMMON:
 			_spawn_trash_wave()
 			phase = Phase.IDLE
-			_timer = 1.4 if not wrong_build else 0.7
+			_timer = 0.55 if wrong_build else 1.35
+	global_position.y = clampf(global_position.y, 250.0, 320.0)
 	z_index = int(global_position.y)
 
 func _hit_player_contact() -> void:
@@ -84,15 +84,18 @@ func _hit_player_contact() -> void:
 		p.take_damage(damage, "charge")
 
 func _spawn_trash_wave() -> void:
-	var count := 4 if not wrong_build else 7
-	var raw = JSON.parse_string(FileAccess.get_file_as_string("res://data/enemies.json"))["boss"]["dumpster_king"]
+	var count := 3
 	if wrong_build:
-		count = int(round(count * float(raw["wrong_build_wave_mult"]) / 1.8))
+		count = 8
 	for i in count:
 		var e := EnemyBase.new()
-		e.role = "grunt" if i % 2 == 0 else "projectile"
+		if wrong_build:
+			e.role = ["grunt", "grunt", "projectile", "tank"][i % 4]
+		else:
+			e.role = "grunt" if i % 2 == 0 else "projectile"
 		get_parent().add_child(e)
-		e.global_position = global_position + Vector2((i - count / 2.0) * 36.0, randf_range(-20, 20))
+		e.global_position = global_position + Vector2((i - count / 2.0) * 34.0, randf_range(-12, 12))
+		e.global_position.y = clampf(e.global_position.y, 250.0, 330.0)
 
 func take_damage(amount: float, src: String = "") -> void:
 	if dead:
@@ -105,14 +108,16 @@ func take_damage(amount: float, src: String = "") -> void:
 		_die()
 
 func on_thrown(dir: Vector2) -> void:
-	# Grab-on-recovery interrupt
 	if phase == Phase.RECOVER:
-		hp -= 35.0
+		hp -= 40.0
 		phase = Phase.IDLE
-		_timer = 1.6
+		_timer = 1.8
 		GameState.grabs_landed += 1
 		hp_changed.emit(hp, max_hp)
-	take_damage(12.0, "throw")
+		if hp <= 0.0:
+			_die()
+			return
+	take_damage(14.0, "throw")
 	global_position += dir.normalized() * 20.0
 
 func _die() -> void:

@@ -21,6 +21,10 @@ var evolve_material: int = 0
 var grabs_landed: int = 0
 var run_active: bool = false
 var pending_level_pick: bool = false
+## When true, level-up UI auto-picks the top (boss-biased) card.
+var auto_pick: bool = false
+## When true, player AI clears enemies for smoke / capture runs.
+var auto_play: bool = false
 
 func start_run() -> void:
 	arsenal.clear()
@@ -49,9 +53,8 @@ func has_tag(tag: String) -> bool:
 	return false
 
 func wrong_build_for_dumpster() -> bool:
-	var has_aoe := has_tag("orbit") or has_tag("aoe")
-	var grab_answer := grabs_landed > 0
-	return (not has_aoe) and (not grab_answer)
+	# Hard counter is Arsenal AoE/orbit. Grab is a soft mid-fight answer only.
+	return not (has_tag("orbit") or has_tag("aoe"))
 
 func add_card(id: String) -> void:
 	if id == "razor_gyre":
