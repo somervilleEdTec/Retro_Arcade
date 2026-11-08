@@ -1,0 +1,10 @@
+.godot/
+*.translation
+export/web/
+export/windows/
+*.exe
+*.pck
+*.zip
+.import/
+*~
+*.tmp

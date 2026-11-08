@@ -1,0 +1,43 @@
+{
+  "cards": [
+    {
+      "id": "pipe_orbit",
+      "name": "Pipe Orbit",
+      "type": "weapon",
+      "tags": ["orbit", "aoe"],
+      "desc": "Pipes whirl around you — clears trash waves.",
+      "boss_bias": ["dumpster_king"],
+      "icon": "res://assets/sprites/arsenal/pipe.png"
+    },
+    {
+      "id": "neon_zap",
+      "name": "Neon Zap",
+      "type": "weapon",
+      "tags": ["projectile", "single"],
+      "desc": "Nearby neon signs zap a single foe.",
+      "boss_bias": [],
+      "icon": "res://assets/sprites/arsenal/neon.png"
+    },
+    {
+      "id": "dumpster_charge",
+      "name": "Dumpster Charge",
+      "type": "weapon",
+      "tags": ["charge", "aoe"],
+      "desc": "A dumpster rams forward on a cooldown.",
+      "boss_bias": ["dumpster_king"],
+      "icon": "res://assets/sprites/arsenal/dumpster.png"
+    },
+    {
+      "id": "razor_gyre",
+      "name": "Razor Gyre",
+      "type": "evolve",
+      "tags": ["orbit", "aoe", "evolve"],
+      "requires": "pipe_orbit",
+      "needs_material": true,
+      "desc": "Evolved orbit — shreds waves and shreds the King.",
+      "boss_bias": ["dumpster_king"],
+      "icon": "res://assets/sprites/arsenal/razor.png"
+    }
+  ],
+  "scrap_thresholds": [20, 45, 75, 110, 150]
+}

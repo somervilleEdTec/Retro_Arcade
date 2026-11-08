@@ -1,0 +1,14 @@
+{
+  "mvp_boss": "dumpster_king",
+  "bosses": {
+    "dumpster_king": {
+      "name": "Dumpster King",
+      "rarity": "Common",
+      "portrait": "res://assets/sprites/ui/boss_portrait.png",
+      "mechanic": "Charge lanes + trash-wave summons. Smash cover, survive the swell.",
+      "hard_counter": "Orbit / AoE Arsenal + grab on recovery",
+      "soft_counter": "Armor passives; dumpster-charge weapon line",
+      "wrong_build": "Pure single-target DPS ignores waves → buried in trash; no grab answer → infinite charge loops"
+    }
+  }
+}
